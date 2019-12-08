@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="doan_QLNV" Class="QLNVDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=DESKTOP-B3EEN8H\SQLEXPRESS;Initial Catalog=doan_QLNV;Integrated Security=True" SettingsObjectName="doan_QLNV.Properties.Settings" SettingsPropertyName="doan_QLNVConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BangLuong" Member="BangLuongs">
+    <Type Name="BangLuong">
+      <Column Name="MaNV" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="LuongCB" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SoNgayTangCa" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LuongTangCa" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BaoHiem" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ThucLanh" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="NhanVien_BangLuong" Member="NhanVien" ThisKey="MaNV" OtherKey="MaNV" Type="NhanVien" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ChucVu" Member="ChucVus">
+    <Type Name="ChucVu">
+      <Column Name="MaCV" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenCV" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PhuCap" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="ChucVu_NhanVien" Member="NhanViens" ThisKey="MaCV" OtherKey="ChucVu" Type="NhanVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CTTrinhDo" Member="CTTrinhDos">
+    <Type Name="CTTrinhDo">
+      <Column Name="ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaNV" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ChuyenMon" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NgayCap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Truong" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="NhanVien_CTTrinhDo" Member="NhanVien" ThisKey="MaNV" OtherKey="MaNV" Type="NhanVien" IsForeignKey="true" />
+      <Association Name="TrinhDo_CTTrinhDo" Member="TrinhDo" ThisKey="ID" OtherKey="MaTD" Type="TrinhDo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HopDong" Member="HopDongs">
+    <Type Name="HopDong">
+      <Column Name="MaHD" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenHD" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NgayBD" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayKT" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="LuongCB" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="HopDong_NhanVien" Member="NhanViens" ThisKey="MaHD" OtherKey="HopDong" Type="NhanVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NguoiDung" Member="NguoiDungs">
+    <Type Name="NguoiDung">
+      <Column Name="MaPQ" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TaiKhoan" Type="System.String" DbType="NVarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MatKhau" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="NguoiDung_NhanVien" Member="NhanViens" ThisKey="TaiKhoan" OtherKey="TaiKhoan" Type="NhanVien" />
+      <Association Name="PhanQuyen_NguoiDung" Member="PhanQuyen" ThisKey="MaPQ" OtherKey="MaPQ" Type="PhanQuyen" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PhanQuyen" Member="PhanQuyens">
+    <Type Name="PhanQuyen">
+      <Column Name="MaPQ" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenPQ" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="PhanQuyen_NguoiDung" Member="NguoiDungs" ThisKey="MaPQ" OtherKey="MaPQ" Type="NguoiDung" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NhanVien" Member="NhanViens">
+    <Type Name="NhanVien">
+      <Column Name="MaNV" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HoVaTen" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CMND" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DanToc" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TonGiao" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Phong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NgayLamTrongThang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NgayLamGanNhat" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayGiaNhap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ATM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BHYT" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SoHD" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PhongBan" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ChucVu" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrinhDo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="HopDong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TaiKhoan" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="NhanVien_BangLuong" Member="BangLuong" ThisKey="MaNV" OtherKey="MaNV" Type="BangLuong" Cardinality="One" />
+      <Association Name="NhanVien_CTTrinhDo" Member="CTTrinhDo" ThisKey="MaNV" OtherKey="MaNV" Type="CTTrinhDo" Cardinality="One" />
+      <Association Name="ChucVu_NhanVien" Member="ChucVu1" ThisKey="ChucVu" OtherKey="MaCV" Type="ChucVu" IsForeignKey="true" />
+      <Association Name="HopDong_NhanVien" Member="HopDong1" ThisKey="HopDong" OtherKey="MaHD" Type="HopDong" IsForeignKey="true" />
+      <Association Name="NguoiDung_NhanVien" Member="NguoiDung" ThisKey="TaiKhoan" OtherKey="TaiKhoan" Type="NguoiDung" IsForeignKey="true" />
+      <Association Name="PhongBan_NhanVien" Member="PhongBan1" ThisKey="PhongBan" OtherKey="MaPB" Type="PhongBan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PhongBan" Member="PhongBans">
+    <Type Name="PhongBan">
+      <Column Name="MaPB" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenPB" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="PhongBan_NhanVien" Member="NhanViens" ThisKey="MaPB" OtherKey="PhongBan" Type="NhanVien" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TrinhDo" Member="TrinhDos">
+    <Type Name="TrinhDo">
+      <Column Name="MaTD" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenTD" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="TrinhDo_CTTrinhDo" Member="CTTrinhDos" ThisKey="MaTD" OtherKey="ID" Type="CTTrinhDo" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DanhSachPhongBan" Member="DanhSachPhongBans">
+    <Type Name="DanhSachPhongBan">
+      <Column Name="MaPB" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenPB" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.getPhongBan" Method="getPhongBan">
+    <ElementType Name="getPhongBanResult">
+      <Column Name="MaPB" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TenPB" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.addPhongBan" Method="addPhongBan">
+    <Parameter Name="TenPB" Parameter="tenPB" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.deletePhongBan" Method="deletePhongBan">
+    <Parameter Name="MaPB" Parameter="maPB" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.updatePhongBan" Method="updatePhongBan">
+    <Parameter Name="MaPB" Parameter="maPB" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TenPB" Parameter="tenPB" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DangNhap" Method="DangNhap">
+    <Parameter Name="tk" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="mk" Type="System.String" DbType="NVarChar(20)" />
+    <ElementType Name="DangNhapResult">
+      <Column Name="MaNV" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MaPQ" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getNhanVien" Method="getNhanVien">
+    <ElementType Name="getNhanVienResult">
+      <Column Name="MaNV" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HoVaTen" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CMND" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DanToc" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TonGiao" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="NgayLamTrongThang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NgayLamGanNhat" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayGiaNhap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ATM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BHYT" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TenPB" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TenCV" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="HopDong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.addNhanVien" Method="addNhanVien">
+    <Parameter Name="HoVaTen" Parameter="hoVaTen" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="CMNV" Parameter="cMNV" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="GioiTinh" Parameter="gioiTinh" Type="System.String" DbType="NVarChar(5)" />
+    <Parameter Name="NgaySinh" Parameter="ngaySinh" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="DanToc" Parameter="danToc" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="TonGiao" Parameter="tonGiao" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="DiaChi" Parameter="diaChi" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="SDT" Parameter="sDT" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="ATM" Parameter="aTM" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="BHYT" Parameter="bHYT" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="TenPhong" Parameter="tenPhong" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="TenCV" Parameter="tenCV" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="HopDong" Parameter="hopDong" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.updateNhanVien" Method="updateNhanVien">
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Parameter Name="HoVaTen" Parameter="hoVaTen" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="CMNV" Parameter="cMNV" Type="System.String" DbType="NVarChar(10)" />
+    <Parameter Name="GioiTinh" Parameter="gioiTinh" Type="System.String" DbType="NVarChar(5)" />
+    <Parameter Name="NgaySinh" Parameter="ngaySinh" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="DanToc" Parameter="danToc" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="TonGiao" Parameter="tonGiao" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="DiaChi" Parameter="diaChi" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="SDT" Parameter="sDT" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="ATM" Parameter="aTM" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="BHYT" Parameter="bHYT" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="TenPhong" Parameter="tenPhong" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="TenCV" Parameter="tenCV" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="HopDong" Parameter="hopDong" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.deleteNhanVien" Method="deleteNhanVien">
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.lay1NhanVien" Method="lay1NhanVien">
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <ElementType Name="lay1NhanVienResult">
+      <Column Name="MaNV" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HoVaTen" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CMND" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.String" DbType="NVarChar(5)" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DanToc" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="TonGiao" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="NgayLamTrongThang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NgayLamGanNhat" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NgayGiaNhap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ATM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BHYT" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TenPB" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TenCV" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="HopDong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ChamCong" Method="ChamCong">
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DoiMk" Method="DoiMk">
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Parameter Name="mkcu" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="mkmoi" Type="System.String" DbType="NVarChar(20)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.addChucVu" Method="addChucVu">
+    <Parameter Name="TenCV" Parameter="tenCV" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="PhuCap" Parameter="phuCap" Type="System.Double" DbType="Float" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.deleteChucVu" Method="deleteChucVu">
+    <Parameter Name="MaCV" Parameter="maCV" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getChucVu" Method="getChucVu">
+    <ElementType Name="getChucVuResult">
+      <Column Name="MaCV" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TenCV" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PhuCap" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.updateChucVu" Method="updateChucVu">
+    <Parameter Name="MaCV" Parameter="maCV" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TenCV" Parameter="tenCV" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="PhuCap" Parameter="phuCap" Type="System.Double" DbType="Float" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.addBangLuong" Method="addBangLuong">
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LuongCB" Parameter="luongCB" Type="System.Double" DbType="Float" />
+    <Parameter Name="SoNgayTangCa" Parameter="soNgayTangCa" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LuongTangCa" Parameter="luongTangCa" Type="System.Double" DbType="Float" />
+    <Parameter Name="BaoHiem" Parameter="baoHiem" Type="System.Double" DbType="Float" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.deleteBangLuong" Method="deleteBangLuong">
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getBangLuong" Method="getBangLuong">
+    <ElementType Name="getBangLuongResult">
+      <Column Name="MaNV" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LuongCB" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SoNgayTangCa" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LuongTangCa" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="BaoHiem" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ThucLanh" Type="System.Double" DbType="Float" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.updateBangLuong" Method="updateBangLuong">
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LuongCB" Parameter="luongCB" Type="System.Double" DbType="Float" />
+    <Parameter Name="SoNgayTangCa" Parameter="soNgayTangCa" Type="System.Int32" DbType="Int" />
+    <Parameter Name="LuongTangCa" Parameter="luongTangCa" Type="System.Double" DbType="Float" />
+    <Parameter Name="BaoHiem" Parameter="baoHiem" Type="System.Double" DbType="Float" />
+    <Parameter Name="ThucLanh" Parameter="thucLanh" Type="System.Double" DbType="Float" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.addChuyenCongTac" Method="addChuyenCongTac">
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MaCVMoi" Parameter="maCVMoi" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MaPBMoi" Parameter="maPBMoi" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getChuyenCongTac" Method="getChuyenCongTac">
+    <ElementType Name="getChuyenCongTacResult">
+      <Column Name="MaChuyen" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NgayChuyen" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="MaNV" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaCVCu" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaCVMoi" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaPBMoi" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.updateChuyenCongTac" Method="updateChuyenCongTac">
+    <Parameter Name="MaChuyen" Parameter="maChuyen" Type="System.Int32" DbType="Int" />
+    <Parameter Name="NgayChuyen" Parameter="ngayChuyen" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MaCVCu" Parameter="maCVCu" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MaCVMoi" Parameter="maCVMoi" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MaPBMoi" Parameter="maPBMoi" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.addCTTrinhDo" Method="addCTTrinhDo">
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ChuyenMon" Parameter="chuyenMon" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="NgayCap" Parameter="ngayCap" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Truong" Parameter="truong" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.deleteCTTrinhDo" Method="deleteCTTrinhDo">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getCTTrinhDo" Method="getCTTrinhDo">
+    <ElementType Name="getCTTrinhDoResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaNV" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChuyenMon" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="NgayCap" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Truong" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.updateCTTrinhDo" Method="updateCTTrinhDo">
+    <Parameter Name="ID" Parameter="iD" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MaNV" Parameter="maNV" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ChuyenMon" Parameter="chuyenMon" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="NgayCap" Parameter="ngayCap" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="Truong" Parameter="truong" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>
